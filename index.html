@@ -4,8 +4,8 @@
   <style>
     .card {
       position: relative;
-      left: 50%;
-      top: 50%;
+      left: 50;
+      top: 50;
       width: 20vw;
       height: 10vw;
       background-color: gray;
@@ -17,7 +17,7 @@
   <button class = "card" id="front" style = "z-index:1;" onclick="flip(this)">
     Front
   </button>
-  <button class = "card" id="back" style = "z-index:0;" onclick="flip(this)">
+  <button class = "card" id="back" style = "z-index:0; position: absolute;" onclick="flip(this)">
     Back
   </button>
   <script>
