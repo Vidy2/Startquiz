@@ -22,7 +22,8 @@
   </button>
   <script>
     function flip(element){
-      element.style.zIndex = window.getComputedStyle(element).zIndex() + 2;
+      const currentZ = parseInt(window.getComputedStyle(element).zIndex);
+      element.style.zIndex = currentZ + 2;
     }
   </script>
 </body>
