@@ -22,9 +22,10 @@
     Back
   </button>
   <script>
+    let currentZ = 2
     function flip(element){
-      const currentZ = parseInt(window.getComputedStyle(element).zIndex);
-      element.style.zIndex = currentZ + 2;
+      element.style.zIndex = currentZ;
+      currentZ++;
     }
   </script>
 </body>
