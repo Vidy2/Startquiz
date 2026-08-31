@@ -3,9 +3,10 @@
 <head>
   <style>
     .card {
-      position: relative;
+      position: absolute;
       left: 50%;
       top: 50%;
+      transform: translate(-50%, -50%);
       width: 20vw;
       height: 10vw;
       background-color: gray;
@@ -17,7 +18,7 @@
   <button class = "card" id="front" style = "z-index:1;" onclick="flip(this)">
     Front
   </button>
-  <button class = "card" id="back" style = "z-index:0; position: absolute;" onclick="flip(this)">
+  <button class = "card" id="back" style = "z-index:0;" onclick="flip(this)">
     Back
   </button>
   <script>
