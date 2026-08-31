@@ -14,12 +14,12 @@
   <title>Quiznet</title>
 </head>
 <body>
-  <button class = "card" id="front" style = "z-index:1;">
+  <button class = "card" id="front" style = "z-index:1;" onclick="flip(this)">
     Front
-  </button onclick="flip(this)">
-  <button class = "card" id="back" style = "z-index:0;">
+  </button>
+  <button class = "card" id="back" style = "z-index:0;" onclick="flip(this)">
     Back
-  </button onclick="flip(this)">
+  </button>
   <script>
     function flip(element){
       element.style.zIndex = window.getComputedStyle(element).zIndex() + 2;
