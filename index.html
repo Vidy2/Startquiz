@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang = "en">
 <head>
+  .card {
+    position: fixed;
+    left: 50vw;
+    top: 50vw;
+    width: 30vw;
+    height: 40vw;
+  }
   <title>Quiznet</title>
 </head>
 <body>
-  <button id="front" style = "z-index:1;">
+  <button class = "card" id="front" style = "z-index:1;">
     Front
   </button onclick="flip(this)">
-  <button id="back" style = "z-index:0;">
+  <button class = "card" id="back" style = "z-index:0;">
     Back
   </button onclick="flip(this)">
   <script>
