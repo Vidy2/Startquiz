@@ -2,30 +2,90 @@
 <html lang = "en">
 <head>
   <style>
-    .card {
-      position: absolute;
+    .container {
+      position: fixed;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      width: 20vw;
-      height: 10vw;
-      background-color: gray;
+      width: 40vw;
+      height: 24vw;
+      border: none;
+      perspective: 1000px;
+    }
+    .cardi {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+      cursor: pointer;
+    }
+    .cardi.flipped {
+      transform: rotateX(180deg);
+    }
+    .card {
+      position: absolute;
+      font-size: 3vw;
+      width: 100%;
+      border-radius: 4vw;
+      height: 100%;
+      border: none;
+      background-color: #f0f0f0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    #back {
+      transform: rotateX(180deg);
     }
   </style>
   <title>Quiznet</title>
 </head>
 <body>
-  <button class = "card" id="front" style = "z-index:2147483647;" onclick="flip(this)">
-    Front
-  </button>
-  <button class = "card" id="back" style = "z-index:2147483646;" onclick="flip(this)">
-    Back
-  </button>
+  <div class ="container">
+    <div class = "cardi" id = "cardi" onclick="flip(this)">
+      <button class = "card" id="front">
+        <p id = "front-number" style = "font-size: 1.5vw; left: 4%; position: absolute; top: 3%; border: 1px solid #ccc;">1</p>
+        Femoral
+      </button>
+      <button class = "card" id="back">
+        <p id = "back-number" style = "font-size: 1.5vw; left: 4%; position: absolute; top: 3%; border: 1px solid #ccc;">1</p>
+        Thigh
+      </button>
+    </div>
+  </div>
+  <div class = "nav">
+    <button onclick="nextCard()" style = "font-size: 2vw; border-radius: 0.7vw; width:7vw; height: 4vw; right: 20%; top: 50%; position: fixed;">Next</button>
+    <button onclick="previousCard()" style = "font-size: 2vw; border-radius: 0.7vw; width:9vw; height: 4vw; left: 18%; top: 50%; position: fixed;">Previous</button>
+  </div>
   <script>
-    let currentZ = 2147483645
     function flip(element){
-      element.style.zIndex = currentZ;
-      currentZ--;
+      element.classList.toggle("flipped");
+    }
+    const cards = {1: {front:"Femoral", back:"Thigh"}, 2: {front: "Brachial", back: "Arm"}, 3: {front: "Antebrachial", back: "Forearm"}}
+    let currentCard = 1;
+    function nextCard(){
+      if (currentCard < Object.keys(cards).length) {
+        currentCard++;
+      } else {
+        currentCard = 1;
+      }
+      document.getElementById("cardi").classList.remove("flipped");
+      document.getElementById("front").childNodes[2].nodeValue = cards[currentCard].front;
+      document.getElementById("back").childNodes[2].nodeValue = cards[currentCard].back;
+      document.getElementById("front-number").innerHTML = currentCard;
+      document.getElementById("back-number").innerHTML = currentCard;
+    }
+    function previousCard(){
+      if (currentCard > 1) {
+        currentCard--;
+      } else {
+        currentCard = Object.keys(cards).length;
+      }
+      document.getElementById("cardi").classList.remove("flipped");
+      document.getElementById("front").childNodes[2].nodeValue = cards[currentCard].front;
+      document.getElementById("back").childNodes[2].nodeValue = cards[currentCard].back;
+      document.getElementById("front-number").innerHTML = currentCard;
+      document.getElementById("back-number").innerHTML = currentCard;
     }
   </script>
 </body>
