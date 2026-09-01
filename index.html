@@ -65,11 +65,26 @@
     <button onclick="previousCard()" style = "font-size: 2vw; border-radius: 0.7vw; width:9vw; height: 4vw; left: 18%; top: 50%; position: fixed;">Previous</button>
   </div>
   <script>
+    let cards;
     function flip(element){
       element.classList.toggle("flipped");
     }
-    const cards = {1: {front:"Femoral", back:"Thigh"}, 2: {front: "Brachial", back: "Arm"}, 3: {front: "Antebrachial", back: "Forearm"}}
+    async function fetchCards(){
+      const response = await fetch("./cards.json");
+      cards = await response.json();
+      showCard();
+    }
     let currentCard = 1;
+    const front = document.getElementById("front");
+    const back = document.getElementById("back");
+    const front_number = document.getElementById("front-number");
+    const back_number = document.getElementById("back-number");
+    function showCard() {
+      front.childNodes[2].nodeValue = cards[currentCard].front;
+      back.childNodes[2].nodeValue = cards[currentCard].back;
+      front_number.textContent = currentCard;
+      back_number.textContent = currentCard;
+    }
     function nextCard(){
       if (currentCard < Object.keys(cards).length) {
         currentCard++;
@@ -81,12 +96,12 @@
       requestAnimationFrame(() => {
         cardi.style.transition = "transform 0.8s";
       });
-      document.getElementById("front").childNodes[2].nodeValue = cards[currentCard].front;
-      document.getElementById("back").childNodes[2].nodeValue = cards[currentCard].back;
-      document.getElementById("front-number").innerHTML = currentCard;
-      document.getElementById("back-number").innerHTML = currentCard;
+      front.childNodes[2].nodeValue = cards[currentCard].front;
+      back.childNodes[2].nodeValue = cards[currentCard].back;
+      front_number.innerHTML = currentCard;
+      back_number.innerHTML = currentCard;
     }
-    function previousCard(){
+    async function previousCard(){
       if (currentCard > 1) {
         currentCard--;
       } else {
@@ -97,10 +112,11 @@
       requestAnimationFrame(() => {
         cardi.style.transition = "transform 0.8s";
       });
-      document.getElementById("front").childNodes[2].nodeValue = cards[currentCard].front;
-      document.getElementById("back").childNodes[2].nodeValue = cards[currentCard].back;
-      document.getElementById("front-number").innerHTML = currentCard;
-      document.getElementById("back-number").innerHTML = currentCard;
+      front.childNodes[2].nodeValue = cards[currentCard].front;
+      back.childNodes[2].nodeValue = cards[currentCard].back;
+      front_number.innerHTML = currentCard;
+      back_number.innerHTML = currentCard;
     }
+    fetchCards();
   </script>
 </body>
