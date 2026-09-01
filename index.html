@@ -15,17 +15,17 @@
   <title>Quiznet</title>
 </head>
 <body>
-  <button class = "card" id="front" style = "z-index:1;" onclick="flip(this)">
+  <button class = "card" id="front" style = "z-index:2147483647;" onclick="flip(this)">
     Front
   </button>
-  <button class = "card" id="back" style = "z-index:0;" onclick="flip(this)">
+  <button class = "card" id="back" style = "z-index:2147483646;" onclick="flip(this)">
     Back
   </button>
   <script>
-    let currentZ = 2
+    let currentZ = 2147483645
     function flip(element){
       element.style.zIndex = currentZ;
-      currentZ++;
+      currentZ--;
     }
   </script>
 </body>
