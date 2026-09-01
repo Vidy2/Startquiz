@@ -69,7 +69,11 @@
       } else {
         currentCard = 1;
       }
+      cardi.style.transition = "none";
       document.getElementById("cardi").classList.remove("flipped");
+      requestAnimationFrame(() => {
+        cardi.style.transition = "transform 0.8s";
+      });
       document.getElementById("front").childNodes[2].nodeValue = cards[currentCard].front;
       document.getElementById("back").childNodes[2].nodeValue = cards[currentCard].back;
       document.getElementById("front-number").innerHTML = currentCard;
@@ -81,7 +85,11 @@
       } else {
         currentCard = Object.keys(cards).length;
       }
+      cardi.style.transition = "none";
       document.getElementById("cardi").classList.remove("flipped");
+      requestAnimationFrame(() => {
+        cardi.style.transition = "transform 0.8s";
+      });
       document.getElementById("front").childNodes[2].nodeValue = cards[currentCard].front;
       document.getElementById("back").childNodes[2].nodeValue = cards[currentCard].back;
       document.getElementById("front-number").innerHTML = currentCard;
