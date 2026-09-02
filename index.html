@@ -64,6 +64,7 @@
     <button onclick="nextCard()" style = "font-size: 2vw; border-radius: 0.7vw; width:7vw; height: 4vw; right: 20%; top: 50%; position: fixed;">Next</button>
     <button onclick="previousCard()" style = "font-size: 2vw; border-radius: 0.7vw; width:9vw; height: 4vw; left: 18%; top: 50%; position: fixed;">Previous</button>
   </div>
+  <button onclick="shuffle()" style = "font-size: 2vw; border-radius: 0.7vw; width:9vw; height: 4vw; left: 45%; top: 80%; position: fixed;">Shuffle</button>
   <script>
     let cards;
     function flip(element){
@@ -71,10 +72,10 @@
     }
     async function fetchCards(){
       const response = await fetch("./cards.json");
-      cards = await response.json();
+      cards = Object.values(await response.json());
       showCard();
     }
-    let currentCard = 1;
+    let currentCard = 0;
     const front = document.getElementById("front");
     const back = document.getElementById("back");
     const front_number = document.getElementById("front-number");
@@ -82,14 +83,14 @@
     function showCard() {
       front.childNodes[2].nodeValue = cards[currentCard].front;
       back.childNodes[2].nodeValue = cards[currentCard].back;
-      front_number.textContent = currentCard;
-      back_number.textContent = currentCard;
+      front_number.textContent = currentCard + 1;
+      back_number.textContent = currentCard + 1;
     }
     function nextCard(){
       if (currentCard < Object.keys(cards).length) {
         currentCard++;
       } else {
-        currentCard = 1;
+        currentCard = 0;
       }
       cardi.style.transition = "none";
       document.getElementById("cardi").classList.remove("flipped");
@@ -98,14 +99,14 @@
       });
       front.childNodes[2].nodeValue = cards[currentCard].front;
       back.childNodes[2].nodeValue = cards[currentCard].back;
-      front_number.innerHTML = currentCard;
-      back_number.innerHTML = currentCard;
+      front_number.innerHTML = currentCard + 1;
+      back_number.innerHTML = currentCard + 1;
     }
     async function previousCard(){
-      if (currentCard > 1) {
+      if (currentCard > 0) {
         currentCard--;
       } else {
-        currentCard = Object.keys(cards).length;
+        currentCard = cards.length - 1;
       }
       cardi.style.transition = "none";
       document.getElementById("cardi").classList.remove("flipped");
@@ -118,5 +119,18 @@
       back_number.innerHTML = currentCard;
     }
     fetchCards();
+    function shuffle(){
+      for (let i = cards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cards[i], cards[j]] = [cards[j], cards[i]];
+      }
+      currentCard = 0;
+      cardi.style.transition = "none";
+      document.getElementById("cardi").classList.remove("flipped");
+      requestAnimationFrame(() => {
+        cardi.style.transition = "transform 0.8s";
+      });
+      showCard();
+    }
   </script>
 </body>
