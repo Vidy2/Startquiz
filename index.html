@@ -97,10 +97,7 @@
       requestAnimationFrame(() => {
         cardi.style.transition = "transform 0.8s";
       });
-      front.childNodes[2].nodeValue = cards[currentCard].front;
-      back.childNodes[2].nodeValue = cards[currentCard].back;
-      front_number.innerHTML = currentCard + 1;
-      back_number.innerHTML = currentCard + 1;
+      showCard();
     }
     async function previousCard(){
       if (currentCard > 0) {
@@ -113,10 +110,7 @@
       requestAnimationFrame(() => {
         cardi.style.transition = "transform 0.8s";
       });
-      front.childNodes[2].nodeValue = cards[currentCard].front;
-      back.childNodes[2].nodeValue = cards[currentCard].back;
-      front_number.innerHTML = currentCard;
-      back_number.innerHTML = currentCard;
+      showCard();
     }
     fetchCards();
     function shuffle(){
