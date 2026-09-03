@@ -65,10 +65,15 @@
     <button onclick="previousCard()" style = "font-size: 2vw; border-radius: 0.7vw; width:9vw; height: 4vw; left: 18%; top: 50%; position: fixed;">Previous</button>
   </div>
   <button onclick="shuffle()" style = "font-size: 2vw; border-radius: 0.7vw; width:9vw; height: 4vw; left: 45%; top: 80%; position: fixed;">Shuffle</button>
+  <button onclick="backflip()" style = "font-size: 2vw; border-radius: 0.7vw; width:9vw; height: 4vw; left: 45%; top: 85%; position: fixed;">Flip Start Side</button>
   <script>
     let anatomical;
+    let backstart = false;
     function flip(element){
       element.classList.toggle("flipped");
+    }
+    function backflip(){
+      backstart = !backstart;
     }
     async function fetchCards(){
       const response = await fetch("./cards.json");
@@ -95,7 +100,12 @@
         currentCard = 0;
       }
       cardi.style.transition = "none";
-      document.getElementById("cardi").classList.remove("flipped");
+      if (!backstart){
+        cardi.classList.remove("flipped");
+      }
+      else {
+        cardi.classList.add("flipped");
+      }
       requestAnimationFrame(() => {
         cardi.style.transition = "transform 0.8s";
       });
@@ -108,7 +118,12 @@
         currentCard = anatomical.length - 1;
       }
       cardi.style.transition = "none";
-      document.getElementById("cardi").classList.remove("flipped");
+      if (!backstart){
+        cardi.classList.remove("flipped");
+      }
+      else {
+        cardi.classList.add("flipped");
+      }
       requestAnimationFrame(() => {
         cardi.style.transition = "transform 0.8s";
       });
