@@ -66,28 +66,30 @@
   </div>
   <button onclick="shuffle()" style = "font-size: 2vw; border-radius: 0.7vw; width:9vw; height: 4vw; left: 45%; top: 80%; position: fixed;">Shuffle</button>
   <script>
-    let cards;
+    let anatomical;
     function flip(element){
       element.classList.toggle("flipped");
     }
     async function fetchCards(){
       const response = await fetch("./cards.json");
-      cards = Object.values(await response.json());
+      const data = await response.json();
+      anatomical = Object.values(data.anatomical_regions);
       showCard();
     }
     let currentCard = 0;
+    const cardi = document.getElementById("cardi");
     const front = document.getElementById("front");
     const back = document.getElementById("back");
     const front_number = document.getElementById("front-number");
     const back_number = document.getElementById("back-number");
     function showCard() {
-      front.childNodes[2].nodeValue = cards[currentCard].front;
-      back.childNodes[2].nodeValue = cards[currentCard].back;
+      front.lastChild.textContent = anatomical[currentCard].front;
+      back.lastChild.textContent = anatomical[currentCard].back;
       front_number.textContent = currentCard + 1;
       back_number.textContent = currentCard + 1;
     }
     function nextCard(){
-      if (currentCard < cards.length - 1) {
+      if (currentCard < anatomical.length - 1) {
         currentCard++;
       } else {
         currentCard = 0;
@@ -103,7 +105,7 @@
       if (currentCard > 0) {
         currentCard--;
       } else {
-        currentCard = cards.length - 1;
+        currentCard = anatomical.length - 1;
       }
       cardi.style.transition = "none";
       document.getElementById("cardi").classList.remove("flipped");
@@ -114,9 +116,9 @@
     }
     fetchCards();
     function shuffle(){
-      for (let i = cards.length - 1; i > 0; i--) {
+      for (let i = anatomical.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [cards[i], cards[j]] = [cards[j], cards[i]];
+        [anatomical[i], anatomical[j]] = [anatomical[j], anatomical[i]];
       }
       currentCard = 0;
       cardi.style.transition = "none";
