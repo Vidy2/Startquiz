@@ -54,11 +54,13 @@
   <div class ="container">
     <div class = "cardi" id = "cardi" onclick="flip(this)">
       <button class = "card" id="front">
-        <p id = "front-number" style = "font-size: 1.5vw; left: 4%; position: absolute; top: 3%; border: 1px solid #ccc;">1</p>
+        <p id = "front-number" style = "font-size: 1.5vw; left: 4%; position: absolute; top: 3%;">1</p>
+        <p style = "font-size: 1.5vw; right: 4%; position: absolute; top: 3%;">Term</p>
         Femoral
       </button>
       <button class = "card" id="back">
-        <p id = "back-number" style = "font-size: 1.5vw; left: 4%; position: absolute; top: 3%; border: 1px solid #ccc;">1</p>
+        <p id = "back-number" style = "font-size: 1.5vw; left: 4%; position: absolute; top: 3%;">1</p>
+        <p style = "font-size: 1.5vw; right: 4%; position: absolute; top: 3%;">Answer</p>
         Thigh
       </button>
     </div>
@@ -68,15 +70,13 @@
     <button onclick="previousCard()" style = "font-size: 2vw; border-radius: 0.7vw; width:9vw; height: 4vw; left: 18%; top: 50%; position: fixed;">Previous</button>
   </div>
   <button class = "flipy" onclick="shuffle()" style = "font-size: 2vw; border-radius: 0.7vw; width:9vw; height: 4vw; left: 50%; top: 80%; position: fixed;">Shuffle</button>
-  <button class = "flipy" onclick="backflip()" style = "font-size: 2vw; border-radius: 0.7vw; width:15vw; height: 4vw; left: 50%; top: 90%; position: fixed;">Flip Start Side</button>
+  <button class = "flipy" id = "flipe" onclick="backflip()" style = "font-size: 2vw; border-radius: 0.7vw; width:15vw; height: 4vw; left: 50%; top: 90%; position: fixed;">Start on Answer</button>
   <script>
     let anatomical;
     let backstart = false;
+    const flipe = document.getElementById("flipe");
     function flip(element){
       element.classList.toggle("flipped");
-    }
-    function backflip(){
-      backstart = !backstart;
     }
     async function fetchCards(){
       const response = await fetch("./cards.json");
@@ -90,6 +90,17 @@
     const back = document.getElementById("back");
     const front_number = document.getElementById("front-number");
     const back_number = document.getElementById("back-number");
+    function backflip(){
+      backstart = !backstart;
+      if (backstart) {
+        flipe.textContent = "Start on Term";
+        cardi.classList.add("flipped");
+      }
+      else {
+        flipe.textContent = "Start on Answer";
+        cardi.classList.remove("flipped");
+      }
+    }
     function showCard() {
       front.lastChild.textContent = anatomical[currentCard].front;
       back.lastChild.textContent = anatomical[currentCard].back;
